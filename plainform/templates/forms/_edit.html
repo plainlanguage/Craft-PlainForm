@@ -1,0 +1,148 @@
+{% extends "_layouts/cp" %}
+
+{% import "_includes/forms" as forms %}
+
+{% set title ="Add New Form" %}
+{% set selectedTab = "forms" %}
+
+{% block content %}
+
+<form method="post" accept-charset="UTF-8" data-saveshortcut="1">
+	<input type="hidden" name="action" value="plainForm/saveForm">
+	<input type="hidden" name="redirect" value="plainform/">
+	{% if form is defined and form.id is defined %}
+	<input type="hidden" name="formId" value="{{ form.id }}">
+	{% endif %}
+
+	{{ forms.textField({
+		first: 			true,
+		label: 			"Name"|t,
+		id: 			"name",
+		name: 			"name",
+		instructions: 	"Give your form a name",
+		value: 			form.name is defined ? form.name : '',
+		autofocus: 		true,
+		errors: 		form.getErrors('name'),
+		required: 		true,
+		translatable: 	true
+	}) }}
+
+	{{ forms.textField({
+		label: 			"Handle"|t,
+		id: 			"handle",
+		name: 			"handle",
+		class: 			"code",
+		instructions: 	"The form's handle. What you'll use to refer to it in templates.",
+		value: 			form.handle is defined ? form.handle : '',
+		errors: 		form.getErrors('handle'),
+		required: 		true
+	}) }}
+
+	{{ forms.textField({
+		label: 			"Description"|t,
+		id: 			"description",
+		name: 			"description",
+		instructions: 	"Give your form a description.",
+		value: 			form.description is defined ? form.description : '',
+		errors: 		form.getErrors('description'),
+		required: 		true
+	}) }}
+
+	{{ forms.textareaField({
+		label: 			"Success Message"|t,
+		id:				"successMessage",
+		name:			"successMessage",
+		class:			"simpleFormRedactor",
+		instructions:	"Enter a message returned on a successful submission.",
+		value:			form.successMessage is defined ? form.successMessage : '',
+		errors:			form.getErrors('successMessage'),
+		required:		true
+	}) }}
+
+	{{ forms.textField({
+		label: 			"Email Notification Subject"|t,
+		id: 			"emailSubject",
+		name: 			"emailSubject",
+		instructions: 	"This is the subject of the email notification. Note: The form name and submission ID will be appended.",
+		value: 			form.emailSubject is defined ? form.emailSubject : '',
+		errors: 		form.getErrors('emailSubject'),
+		required: 		true,
+	}) }}
+
+	{{ forms.textField({
+		label: 			"From Name of Notification"|t,
+		id: 			"fromName",
+		name: 			"fromName",
+		instructions: 	"",
+		value: 			fromName is defined ? form.fromName : '',
+		errors: 		form.getErrors('fromName'),
+		required: 		true,
+	}) }}
+
+	{{ forms.textField({
+		label: 			"From Email Address of Notification"|t,
+		id: 			"fromEmail",
+		name: 			"fromEmail",
+		instructions: 	"",
+		value: 			form.fromEmail is defined ? form.fromEmail : '',
+		errors: 		form.getErrors('fromEmail'),
+		required: 		true,
+	}) }}
+
+	{{ forms.textField({
+		label: 			"Reply-To Email Address of Notification"|t,
+		id: 			"replyToEmail",
+		name: 			"replyToEmail",
+		instructions: 	"",
+		value: 			form.replyToEmail is defined ? form.replyToEmail : '',
+		errors: 		form.getErrors('replyToEmail'),
+		required: 		true,
+	}) }}
+
+	{{ forms.textField({
+		label: 			"Send Email Notifications To"|t,
+		id: 			"toEmail",
+		name: 			"toEmail",
+		instructions: 	"To send the notification to more than one email address, separate with a comma(,)",
+		value: 			form.toEmail is defined ? form.toEmail : '',
+		errors: 		form.getErrors('toEmail'),
+		required: 		true,
+	}) }}
+
+	{{ forms.textField({
+		label: 			"Template Path to Notification Email"|t,
+		id: 			"notificationTemplatePath",
+		name: 			"notificationTemplatePath",
+		instructions: 	"Set the relative path to the Twig template you would like to use for your notification email.",
+		value: 			form.notificationTemplatePath is defined ? form.notificationTemplatePath : '',
+		errors: 		form.getErrors('notificationTemplatePath'),
+		required: 		false,
+	}) }}
+
+	<hr>
+
+	<div class="button">
+		<input type="submit" class="btn submit" value="{{ 'Save'|t }}">
+	</div>
+
+</form>
+
+{% endblock %}
+
+
+{% block sidebar %}
+	{{ parent() }}
+{% endblock %}
+
+{% includeCssResource "lib/redactor/redactor.css" %}
+{% includeJsResource "lib/redactor/redactor.js" %}
+{% set js %}
+(function() {
+	$('.simpleFormRedactor').redactor({
+		buttons: ['html','formatting','bold','italic','unorderedlist','orderedlist','link','image','video'],
+		{# plugins: ['fullscreen'], #}
+		toolbarFixedBox: true
+	});
+})();
+{% endset %}
+{% includeJs js %}

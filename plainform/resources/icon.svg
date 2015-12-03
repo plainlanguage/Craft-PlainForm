@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="594px" height="594px" viewBox="0 0 594 594" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.3 (16044) - http://www.bohemiancoding.com/sketch -->
+    <title>icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="icon" sketch:type="MSArtboardGroup">
+            <rect id="BG" stroke="#BFC1BF" stroke-width="6" fill="#ECEDEC" sketch:type="MSShapeGroup" x="0" y="0" width="594" height="594" rx="24"></rect>
+            <g id="inputs" sketch:type="MSLayerGroup" transform="translate(53.000000, 47.000000)">
+                <rect id="BG" fill="#FFFFFF" sketch:type="MSShapeGroup" x="0" y="0" width="488" height="100" rx="16"></rect>
+                <rect id="BG-Copy" fill="#FFFFFF" sketch:type="MSShapeGroup" x="0" y="132" width="488" height="100" rx="16"></rect>
+                <rect id="BG-Copy-2" fill="#FFFFFF" sketch:type="MSShapeGroup" x="0" y="266" width="488" height="100" rx="16"></rect>
+                <path d="M6,12.0002187 L6,12.0002187 L6,87.9997813 C6,91.3112079 8.68868327,94 12.0023254,94 L475.997675,94 C479.311397,94 482,91.3122724 482,87.9997813 L482,12.0002187 C482,8.68879213 479.311317,6 475.997675,6 L12.0023254,6 C8.68860297,6 6,8.68772755 6,12.0002187 L6,12.0002187 Z M0,12.0002187 C0,5.37268092 5.37623274,0 12.0023254,0 L475.997675,0 C482.626376,0 488,5.37643433 488,12.0002187 L488,87.9997813 C488,94.6273191 482.623767,100 475.997675,100 L12.0023254,100 C5.37362412,100 0,94.6235657 0,87.9997813 L0,12.0002187 L0,12.0002187 Z" id="Shape" fill="#BFC1BF" sketch:type="MSShapeGroup"></path>
+                <path d="M6,144.000219 L6,144.000219 L6,219.999781 C6,223.311208 8.68868327,226 12.0023254,226 L475.997675,226 C479.311397,226 482,223.312272 482,219.999781 L482,144.000219 C482,140.688792 479.311317,138 475.997675,138 L12.0023254,138 C8.68860297,138 6,140.687728 6,144.000219 L6,144.000219 Z M0,144.000219 C0,137.372681 5.37623274,132 12.0023254,132 L475.997675,132 C482.626376,132 488,137.376434 488,144.000219 L488,219.999781 C488,226.627319 482.623767,232 475.997675,232 L12.0023254,232 C5.37362412,232 0,226.623566 0,219.999781 L0,144.000219 L0,144.000219 Z" id="Shape" fill="#BFC1BF" sketch:type="MSShapeGroup"></path>
+                <path d="M6,276.000219 L6,276.000219 L6,351.999781 C6,355.311208 8.68868327,358 12.0023254,358 L475.997675,358 C479.311397,358 482,355.312272 482,351.999781 L482,276.000219 C482,272.688792 479.311317,270 475.997675,270 L12.0023254,270 C8.68860297,270 6,272.687728 6,276.000219 L6,276.000219 Z M0,276.000219 C0,269.372681 5.37623274,264 12.0023254,264 L475.997675,264 C482.626376,264 488,269.376434 488,276.000219 L488,351.999781 C488,358.627319 482.623767,364 475.997675,364 L12.0023254,364 C5.37362412,364 0,358.623566 0,351.999781 L0,276.000219 L0,276.000219 Z" id="Shape" fill="#BFC1BF" sketch:type="MSShapeGroup"></path>
+                <rect id="Text" fill="#A9AAA9" sketch:type="MSShapeGroup" x="38" y="38" width="224" height="24"></rect>
+                <rect id="Text-Copy" fill="#A9AAA9" sketch:type="MSShapeGroup" x="38" y="169" width="322" height="24"></rect>
+                <rect id="Text-Copy-2" fill="#A9AAA9" sketch:type="MSShapeGroup" x="38" y="302" width="282" height="24"></rect>
+            </g>
+            <g id="button" sketch:type="MSLayerGroup" transform="translate(147.000000, 443.000000)" stroke="#D3580D" stroke-width="6" fill="#EF620D">
+                <rect id="Rectangle-1-Copy-3" sketch:type="MSShapeGroup" x="0" y="0" width="300" height="100" rx="12"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

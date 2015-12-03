@@ -1,0 +1,128 @@
+{#
+	Sample PlainForm template.
+
+	This template assumes several things:
+
+	1. A layout to extend called "_layout" in the root of your templates folder. This can obviously be changed to whatever you would lke.
+	2. Copying Craft app's forms macros into your templates directory. This includes `forms.html` and the `forms` directory.
+	3. That you have created a PlainForm form with a handle of `contactForm`.
+#}
+
+{% extends "_layout" %}
+
+{% import "_includes/forms" as forms %}
+
+{% block content %}
+<div class="container">
+
+{% if craft.session.hasFlash('success') %}
+
+	{{ craft.session.getFlash('success') | raw }}
+
+{% else %}
+
+	<form method="post" accept-charset="utf-8">
+
+		{% if craft.session.hasFlash('error') %}
+			{# Error handling #}
+			{% for error in craft.session.getFlash('error').required %}
+			<p class="error">{{ error }}</p>
+			{% endfor %}
+		{% endif %}
+
+		{% if craft.session.hasFlash('post') %}
+			{% set form = craft.session.getFlash('post') %}
+		{% endif %}
+
+		<input type="hidden" name="action" value="plainForm/saveFormEntry">
+		<input type="hidden" name="plainFormHandle" value="contactForm">
+		<input type="hidden" name="redirect" value="contact">
+		<input type="hidden" name="required[name]" value="Please enter your name.">
+		<input type="hidden" name="required[emailAddress]" value="Please enter your email address.">
+
+		{# Name #}
+		{{forms.textField({
+			label:		"Name"|t,
+			name:		"name",
+			id:			"name",
+			value:		form.name is defined ? form.name : '',
+		})	}}
+
+		{# Company #}
+		{{forms.textField({
+			label:		"Company"|t,
+			name:		"company",
+			id:			"company",
+			value:		form.company is defined ? form.company : '',
+		})	}}
+
+		{# Address #}
+		{{forms.textField({
+			label:		"Address"|t,
+			name:		"address",
+			id:			"address",
+			value:		form.address is defined ? form.address : '',
+		})	}}
+
+		{# City #}
+		{{forms.textField({
+			label:		"City"|t,
+			name:		"city",
+			id:			"city",
+			value:		form.city is defined ? form.city : '',
+		})	}}
+
+		{# State select #}
+
+		{# Zip #}
+		{{forms.textField({
+			label:		"Zip Code"|t,
+			name:		"zipCode",
+			id:			"zipCode",
+			value:		form.zipCode is defined ? form.zipCode : '',
+		})	}}
+
+		{# Email Address #}
+		{{forms.textField({
+			label:		"Email Address"|t,
+			name:		"emailAddress",
+			id:			"emailAddress",
+			value:		form.emailAddress is defined ? form.emailAddress : '',
+		})	}}
+
+		{# Phone #}
+		{{forms.textField({
+			label:		"Phone"|t,
+			name:		"phone",
+			id:			"phone",
+			value:		form.phone is defined ? form.phone : '',
+			errors:		form is defined ? form.getErrors('phone'),
+		})	}}
+
+		{# Fax #}
+		{{forms.textField({
+			label:		"Fax"|t,
+			name:		"fax",
+			id:			"fax",
+			value:		form.fax is defined ? form.fax : '',
+		})	}}
+
+		{# Message #}
+		{{forms.textareaField({
+			label:		"Message"|t,
+			name:		"message",
+			id:			"message",
+			rows:		4,
+			value:		form.message is defined ? form.message : '',
+		})	}}
+
+		<button type="submit">
+			Submit Message
+		</button>
+
+	</form>
+
+{% endif %}
+
+</div>
+{% endblock %}
