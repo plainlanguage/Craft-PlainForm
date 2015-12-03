@@ -133,7 +133,7 @@ class PlainFormService extends BaseApplicationComponent
 			// Grab the entry ids so we can clean the elements table.
 			$entryIds = craft()->db->createCommand()
 				->select('id')
-				->from('plainform_entries')
+				->from('PlainForm_entries')
 				->where(array('formId' => $formId))
 				->queryColumn();
 

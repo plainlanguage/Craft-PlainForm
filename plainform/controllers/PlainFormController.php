@@ -28,7 +28,7 @@ class PlainFormController extends BaseController
 
 	public function actionEditForm(array $variables = array())
 	{
-		$variables['form'] = plainform_FormRecord::model()->findById($variables['formId']);
+		$variables['form'] = PlainForm_FormRecord::model()->findById($variables['formId']);
 		$variables['tabs'] = $this->_getTabs();
 
 		return $this->renderTemplate('plainform/forms/_edit', $variables);
@@ -38,7 +38,7 @@ class PlainFormController extends BaseController
 	{
 		$this->requirePostRequest();
 
-		$form = new plainform_FormModel;
+		$form = new PlainForm_FormModel;
 
 		$form->id                       = craft()->request->getPost('formId');
 		$form->name                     = craft()->request->getPost('name');
@@ -52,7 +52,7 @@ class PlainFormController extends BaseController
 		$form->toEmail                  = craft()->request->getPost('toEmail');
 		$form->notificationTemplatePath = craft()->request->getPost('notificationTemplatePath');
 
-		if (craft()->plainform->saveForm($form))
+		if (craft()->plainForm->saveForm($form))
 		{
 			craft()->userSession->setNotice(Craft::t('Form saved.'));
 			$this->redirectToPostedUrl($form);
