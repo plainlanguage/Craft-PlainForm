@@ -82,7 +82,7 @@ class PlainFormController extends BaseController
 	public function actionEntriesIndex()
 	{
 		// Get the data
-		$variables = craft()->plainform->getAllEntries();
+		$variables = craft()->plainForm->getAllEntries();
 		$variables['tabs'] = $this->_getTabs();
 
 		// Render the template!
