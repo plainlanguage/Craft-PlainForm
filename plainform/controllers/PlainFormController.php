@@ -250,7 +250,7 @@ class PlainFormController extends BaseController
         $message = craft()->templates->render($template, $variables);
 
         // Send the message
-        if (craft()->plainForm->sendEmailNotification($form, $message, true, null)) {
+        if (craft()->plainForm->sendEmailNotification($form, $message, $postData, true, null)) {
             return true;
         } else {
             return false;
