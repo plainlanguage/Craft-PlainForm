@@ -12,7 +12,7 @@ class PlainFormElementType extends BaseElementType
 	{
 		$sources = array(
 			'*' => array(
-				'label' => Craft::t('All Submissons'),
+				'label' => Craft::t('All Submissions.'),
 			),
 		);
 
@@ -70,7 +70,7 @@ class PlainFormElementType extends BaseElementType
 	{
 		return array(
 			'formId' => AttributeType::Mixed,
-			'order'  => array(AttributeType::String, 'default' => 'simpleform_entries.dateCreated desc'),
+			'order'  => array(AttributeType::String, 'default' => 'plainform_entries.dateCreated desc'),
 		);
 	}
 
@@ -84,12 +84,12 @@ class PlainFormElementType extends BaseElementType
 	public function modifyElementsQuery(DbCommand $query, ElementCriteriaModel $criteria)
 	{
 		$query
-			->addSelect('simpleform_entries.formId, simpleform_entries.data')
-			->join('simpleform_entries simpleform_entries', 'simpleform_entries.id = elements.id')
+			->addSelect('plainform_entries.formId, plainform_entries.data')
+			->join('plainform_entries plainform_entries', 'plainform_entries.id = elements.id')
 		;
 
 		if ($criteria->formId) {
-			$query->andWhere(DbHelper::parseParam('simpleform_entries.formId', $criteria->formId, $query->params));
+			$query->andWhere(DbHelper::parseParam('plainform_entries.formId', $criteria->formId, $query->params));
 		}
 	}
 

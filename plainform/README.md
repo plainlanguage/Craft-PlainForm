@@ -1,6 +1,6 @@
-# SimpleForm for Craft CMS
+# PlainForm for Craft CMS
 
-A simple form submission logger and email notifier for [Craft 2](http://buildwithcraft.com).
+A form submission logger and email notifier for [Craft 2](http://buildwithcraft.com).
 
 -----
 
