@@ -66,7 +66,7 @@ class PlainForm_EntryModel extends BaseElementModel
 		$filterKeys = array(
 			'required',
 			'action',
-			'simpleformhandle',
+			'plainFormHandle',
 			'redirect',
 			'honeypot',
 		);

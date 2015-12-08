@@ -52,7 +52,7 @@
 		label: 			"Success Message"|t,
 		id:				"successMessage",
 		name:			"successMessage",
-		class:			"simpleFormRedactor",
+		class:			"plainFormRedactor",
 		instructions:	"Enter a message returned on a successful submission.",
 		value:			form.successMessage is defined ? form.successMessage : '',
 		errors:			form.getErrors('successMessage'),
@@ -74,7 +74,7 @@
 		id: 			"fromName",
 		name: 			"fromName",
 		instructions: 	"",
-		value: 			fromName is defined ? form.fromName : '',
+		value: 			form.fromName is defined ? form.fromName : '',
 		errors: 		form.getErrors('fromName'),
 		required: 		true,
 	}) }}
@@ -138,7 +138,7 @@
 {% includeJsResource "lib/redactor/redactor.js" %}
 {% set js %}
 (function() {
-	$('.simpleFormRedactor').redactor({
+	$('.plainFormRedactor').redactor({
 		buttons: ['html','formatting','bold','italic','unorderedlist','orderedlist','link','image','video'],
 		{# plugins: ['fullscreen'], #}
 		toolbarFixedBox: true
