@@ -16,10 +16,10 @@ class PlainForm_FormRecord extends BaseRecord
 			'description'              => AttributeType::String,
 			'successMessage'           => AttributeType::Mixed,
 			'emailSubject'             => AttributeType::String,
-			'fromEmail'                => AttributeType::Mixed,
+			'fromEmail'                => AttributeType::String,
 			'fromName'                 => AttributeType::String,
-			'replyToEmail'             => AttributeType::Email,
-			'toEmail'                  => AttributeType::Mixed,
+			'replyToEmail'             => AttributeType::String,
+			'toEmail'                  => AttributeType::String,
 			'notificationTemplatePath' => AttributeType::String,
 		);
 	}
