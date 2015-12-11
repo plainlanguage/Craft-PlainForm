@@ -68,11 +68,14 @@ class PlainForm_EntryModel extends BaseElementModel
     private function _filterPostKeys($post)
     {
         $filterKeys = array(
-            'required',
             'action',
-            'plainformhandle',
-            'redirect',
             'honeypot',
+            'redirect',
+            'required',
+            'plainformhandle',
+            'plainformhoneypot',
+            'simpleformhandle',
+            'simpleformhoneypot',
         );
 
         if (is_array($post)) {

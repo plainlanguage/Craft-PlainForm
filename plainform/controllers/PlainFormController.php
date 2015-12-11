@@ -262,10 +262,13 @@ class PlainFormController extends BaseController
     {
         $filterKeys = array(
             'action',
-            'required',
+            'honeypot',
             'redirect',
+            'required',
             'plainformhandle',
             'plainformhoneypot',
+            'simpleformhandle',
+            'simpleformhoneypot',
         );
 
         if (isset($post['plainFormHoneypot'])) {
