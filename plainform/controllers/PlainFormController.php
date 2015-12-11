@@ -173,6 +173,7 @@ class PlainFormController extends BaseController
         // Set entry attributes
         $plainFormEntry->formId = $form->id;
         $plainFormEntry->data   = $data;
+        $plainFormEntry->ip     = $_SERVER['REMOTE_ADDR'];
 
         // Save it
         if (craft()->plainForm->saveFormEntry($plainFormEntry)) {
@@ -261,10 +262,13 @@ class PlainFormController extends BaseController
     {
         $filterKeys = array(
             'action',
-            'required',
+            'honeypot',
             'redirect',
+            'required',
             'plainformhandle',
-            'plainformHoneypot',
+            'plainformhoneypot',
+            'simpleformhandle',
+            'simpleformhoneypot',
         );
 
         if (isset($post['plainFormHoneypot'])) {

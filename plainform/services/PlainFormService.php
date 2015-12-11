@@ -214,4 +214,18 @@ class PlainFormService extends BaseApplicationComponent
 
     }
 
+    /**
+     * Check if value is an email address.
+     * @param $value
+     * @return bool
+     */
+    public function isEmail($value)
+    {
+        if (!filter_var($value, FILTER_VALIDATE_EMAIL) === false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

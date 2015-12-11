@@ -12,7 +12,7 @@ class PlainFormElementType extends BaseElementType
 	{
 		$sources = array(
 			'*' => array(
-				'label' => Craft::t('All Submissions.'),
+				'label' => Craft::t('All Submissions'),
 			),
 		);
 
@@ -29,7 +29,28 @@ class PlainFormElementType extends BaseElementType
 		return $sources;
 	}
 
-	public function defineSearchableAttributes()
+    /**
+     * @inheritDoc IElementType::getAvailableActions()
+     *
+     * @param string|null $source
+     *
+     * @return array|null
+     */
+    public function getAvailableActions($source = null)
+    {
+        $deleteAction = craft()->elements->getAction('Delete');
+
+        $deleteAction->setParams(
+            array(
+                'confirmationMessage' => Craft::t('Are you sure you want to delete the selected entries?'),
+                'successMessage'      => Craft::t('Entries deleted.'),
+            )
+        );
+
+        return array($deleteAction);
+    }
+
+    public function defineSearchableAttributes()
 	{
 		return array('id', 'data');
 	}
@@ -38,8 +59,6 @@ class PlainFormElementType extends BaseElementType
 	{
 		return array(
 			'id'          => Craft::t('ID'),
-			// 'formId'   => Craft::t('Form ID'),
-			//'title'       => Craft::t('Title'),
 			'dateCreated' => Craft::t('Date'),
 			'data'        => Craft::t('Submission Data'),
 		);

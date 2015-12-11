@@ -6,13 +6,13 @@ namespace Craft;
  */
 class m140811_114526_plainform_PlainForm_AddTitleFieldToEntry extends BaseMigration
 {
-	/**
-	 * Any migration code in here is wrapped inside of a transaction.
-	 *
-	 * @return bool
-	 */
-	public function safeUp()
-	{
-		return true;
-	}
+    /**
+     * Any migration code in here is wrapped inside of a transaction.
+     *
+     * @return bool
+     */
+    public function safeUp()
+    {
+        return true;
+    }
 }
