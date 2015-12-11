@@ -186,6 +186,7 @@ class PlainFormController extends BaseController
         // Set entry attributes
         $plainFormEntry->formId = $form->id;
         $plainFormEntry->data   = $data;
+        $plainFormEntry->ip     = $_SERVER['REMOTE_ADDR'];
 
         // Save it
         if ($id = craft()->plainForm->saveFormEntry($plainFormEntry)) {
