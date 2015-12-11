@@ -103,6 +103,10 @@ class PlainFormController extends BaseController
         $this->renderTemplate('plainform/entries/_view', $variables);
     }
 
+    /**
+     * Save form entry.
+     * @throws HttpException
+     */
     public function actionSaveFormEntry()
     {
         // Require a post request
@@ -147,7 +151,16 @@ class PlainFormController extends BaseController
             craft()->userSession->setError($errors);
             craft()->userSession->setFlash('post', craft()->request->getPost());
 
-            $this->redirect(craft()->request->getUrl());
+            if (craft()->request->isAjaxRequest()) {
+                $return = array(
+                    'success' => false,
+                    'errors'  => $errors
+                );
+
+                $this->returnJson($return);
+            } else {
+                $this->redirect(craft()->request->getUrl());
+            }
         }
 
         if (!$plainFormHandle) {
@@ -173,10 +186,9 @@ class PlainFormController extends BaseController
         // Set entry attributes
         $plainFormEntry->formId = $form->id;
         $plainFormEntry->data   = $data;
-        $plainFormEntry->ip     = $_SERVER['REMOTE_ADDR'];
 
         // Save it
-        if (craft()->plainForm->saveFormEntry($plainFormEntry)) {
+        if ($id = craft()->plainForm->saveFormEntry($plainFormEntry)) {
             // Time to make the notifications
             if ($this->_sendEmailNotification($plainFormEntry, $form)) {
                 // Set the message
@@ -187,21 +199,51 @@ class PlainFormController extends BaseController
                 }
 
                 craft()->userSession->setFlash('success', $message);
-                $this->redirectToPostedUrl();
+
+                if (craft()->request->isAjaxRequest()) {
+                    $return = array(
+                        'success' => true,
+                        'id'      => $id,
+                        'message' => $form->successMessage,
+                    );
+                    $this->returnJson($return);
+                } else {
+                    $this->redirectToPostedUrl();
+                }
             } else {
                 craft()->userSession->setError(Craft::t('We\'re sorry, but something has gone wrong.'));
             }
 
             craft()->userSession->setNotice(Craft::t('Entry saved.'));
-            $this->redirectToPostedUrl($plainformEntry);
+
+            if (craft()->request->isAjaxRequest()) {
+                $return = array(
+                    'success' => true,
+                    'id'      => $id,
+                );
+                $this->returnJson($return);
+            } else {
+                $this->redirectToPostedUrl($plainFormEntry);
+            }
         } else {
             craft()->userSession->setNotice(Craft::t("Couldn't save the form."));
         }
 
-        // Send the saved form back to the template
-        craft()->urlManager->setRouteVariables(array(
-            'entry' => $plainFormEntry
-        ));
+        /**
+         * Handle AJAX requests.
+         */
+        if (craft()->request->isAjaxRequest()) {
+            $return = array(
+                'success' => false,
+            );
+
+            $this->returnJson($return);
+        } else {
+            // Send the saved form back to the template
+            craft()->urlManager->setRouteVariables(array(
+                'entry' => $simpleFormEntry
+            ));
+        }
     }
 
     public function actionDeleteEntry()
