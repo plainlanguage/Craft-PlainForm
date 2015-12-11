@@ -59,8 +59,6 @@ class PlainFormElementType extends BaseElementType
 	{
 		return array(
 			'id'          => Craft::t('ID'),
-			// 'formId'   => Craft::t('Form ID'),
-			//'title'       => Craft::t('Title'),
 			'dateCreated' => Craft::t('Date'),
 			'data'        => Craft::t('Submission Data'),
 		);

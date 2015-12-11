@@ -1,8 +1,6 @@
 <?php
 namespace Craft;
 
-use Helpers/
-
 class PlainForm_EntryModel extends BaseElementModel
 {
     protected $elementType = 'PlainForm';
