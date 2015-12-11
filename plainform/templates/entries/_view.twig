@@ -18,7 +18,11 @@
 		{% for name, value in data %}
 		<tr>
 			<td><strong>{{ name | ucfirst() }}</strong></td>
+            {% if craft.plainForm.isEmail(value) %}
+            <td><a href="mailto: {{ value }}">{{ value }}</a></td>
+            {% else %}
 			<td>{{ value | markdown }}</td>
+            {% endif %}
 		</tr>
 		{% endfor %}
 

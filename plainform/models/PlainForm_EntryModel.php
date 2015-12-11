@@ -1,6 +1,8 @@
 <?php
 namespace Craft;
 
+use Helpers/
+
 class PlainForm_EntryModel extends BaseElementModel
 {
     protected $elementType = 'PlainForm';
@@ -52,7 +54,11 @@ class PlainForm_EntryModel extends BaseElementModel
 
         $newData = '<ul>';
         foreach ($data as $key => $value) {
-            $newData .= '<li class="left icon text" style="margin-right:10px;"><strong>' . ucfirst($key) . "</strong>: {$value}</li>";
+            if (craft()->plainForm->isEmail($value)) {
+                $newData .= '<li class="left icon text" style="margin-right:10px;"><strong>' . ucfirst($key) . "</strong>: <a href='mailto:{$value}'>{$value}</a></li>";
+            } else {
+                $newData .= '<li class="left icon text" style="margin-right:10px;"><strong>' . ucfirst($key) . "</strong>: {$value}</li>";
+            }
         }
         $newData .= "</ul>";
 
@@ -66,7 +72,7 @@ class PlainForm_EntryModel extends BaseElementModel
         $filterKeys = array(
             'required',
             'action',
-            'plainFormHandle',
+            'plainformhandle',
             'redirect',
             'honeypot',
         );

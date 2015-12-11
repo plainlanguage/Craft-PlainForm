@@ -265,7 +265,7 @@ class PlainFormController extends BaseController
             'required',
             'redirect',
             'plainformhandle',
-            'plainformHoneypot',
+            'plainformhoneypot',
         );
 
         if (isset($post['plainFormHoneypot'])) {
