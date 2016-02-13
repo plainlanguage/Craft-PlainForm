@@ -128,8 +128,19 @@ class PlainFormController extends BaseController
         if ($this->googleRecaptchaSupported())  {
             // Verify the Google Recaptcha response
             if (! $this->recaptchaVerified()) {
-                // Redirect if not verified
-                $this->redirect(craft()->request->getUrl());
+                if (craft()->request->isAjaxRequest()) {
+                    $return = array(
+                        'success' => false,
+                        'errors'  => array(
+                            'Captcha response failed.'
+                        ),
+                    );
+                    $this->returnJson($return);
+                } else {
+                    // Redirect if not verified
+                    $this->redirect(craft()->request->getUrl());
+                }
+
             }
         }
 
@@ -321,6 +332,7 @@ class PlainFormController extends BaseController
             'plainformhoneypot',
             'simpleformhandle',
             'simpleformhoneypot',
+            'g-recaptcha-response',
         );
 
         if (isset($post['plainFormHoneypot'])) {

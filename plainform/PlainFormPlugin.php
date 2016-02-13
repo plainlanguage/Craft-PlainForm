@@ -10,7 +10,7 @@ class PlainFormPlugin extends BasePlugin
 
 	function getVersion()
 	{
-		return '1.2.0';
+		return '1.2.2';
 	}
 
 	function getDeveloper()
