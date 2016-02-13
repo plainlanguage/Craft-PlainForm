@@ -76,6 +76,7 @@ class PlainForm_EntryModel extends BaseElementModel
             'plainformhoneypot',
             'simpleformhandle',
             'simpleformhoneypot',
+            'g-recaptcha-response',
         );
 
         if (is_array($post)) {

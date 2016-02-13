@@ -332,6 +332,7 @@ class PlainFormController extends BaseController
             'plainformhoneypot',
             'simpleformhandle',
             'simpleformhoneypot',
+            'g-recaptcha-response',
         );
 
         if (isset($post['plainFormHoneypot'])) {
