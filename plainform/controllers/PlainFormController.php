@@ -124,6 +124,15 @@ class PlainFormController extends BaseController
             }
         }
 
+        // Check for Google Recaptcha plugin support
+        if ($this->googleRecaptchaSupported())  {
+            // Verify the Google Recaptcha response
+            if (! $this->recaptchaVerified()) {
+                // Redirect if not verified
+                $this->redirect(craft()->request->getUrl());
+            }
+        }
+
         // Set the required errors array
         $errors['required'] = array();
 
@@ -342,6 +351,34 @@ class PlainFormController extends BaseController
                 'url'   => UrlHelper::getUrl('plainform/entries'),
             ),
         );
+    }
+
+    /**
+     * Check if the Google Recaptcha response is verified.
+     * @return bool
+     */
+    private function recaptchaVerified()
+    {
+        // Get the Google Recaptcha response
+        $captcha = craft()->request->getPost('g-recaptcha-response');
+
+        // Verify the response via the Google Recaptcha plugin.
+        $verified = craft()->recaptcha_verify->verify($captcha);
+
+        return $verified ? true : false;
+    }
+
+    /**
+     * Check if the Google Recaptcha plugin is installed and enabled.
+     * @return bool
+     * @url https://github.com/aberkie/craft-recaptcha
+     */
+    private function googleRecaptchaSupported()
+    {
+        // Get the Google Recaptcha plugin by handle
+        $plugin = craft()->plugins->getPlugin('recaptcha', false);
+
+        return $plugin->isInstalled and $plugin->isEnabled ? true : false;
     }
 
     public function renderTest()
