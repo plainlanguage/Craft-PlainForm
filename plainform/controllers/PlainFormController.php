@@ -103,6 +103,10 @@ class PlainFormController extends BaseController
         $this->renderTemplate('plainform/entries/_view', $variables);
     }
 
+    /**
+     * Save form entry.
+     * @throws HttpException
+     */
     public function actionSaveFormEntry()
     {
         // Require a post request
@@ -116,6 +120,15 @@ class PlainFormController extends BaseController
 
             if (!empty($honeypotValue)) {
                 craft()->userSession->setFlash('honeypot', 'yup');
+                $this->redirect(craft()->request->getUrl());
+            }
+        }
+
+        // Check for Google Recaptcha plugin support
+        if ($this->googleRecaptchaSupported())  {
+            // Verify the Google Recaptcha response
+            if (! $this->recaptchaVerified()) {
+                // Redirect if not verified
                 $this->redirect(craft()->request->getUrl());
             }
         }
@@ -147,7 +160,16 @@ class PlainFormController extends BaseController
             craft()->userSession->setError($errors);
             craft()->userSession->setFlash('post', craft()->request->getPost());
 
-            $this->redirect(craft()->request->getUrl());
+            if (craft()->request->isAjaxRequest()) {
+                $return = array(
+                    'success' => false,
+                    'errors'  => $errors
+                );
+
+                $this->returnJson($return);
+            } else {
+                $this->redirect(craft()->request->getUrl());
+            }
         }
 
         if (!$plainFormHandle) {
@@ -176,7 +198,7 @@ class PlainFormController extends BaseController
         $plainFormEntry->ip     = $_SERVER['REMOTE_ADDR'];
 
         // Save it
-        if (craft()->plainForm->saveFormEntry($plainFormEntry)) {
+        if ($id = craft()->plainForm->saveFormEntry($plainFormEntry)) {
             // Time to make the notifications
             if ($this->_sendEmailNotification($plainFormEntry, $form)) {
                 // Set the message
@@ -187,21 +209,51 @@ class PlainFormController extends BaseController
                 }
 
                 craft()->userSession->setFlash('success', $message);
-                $this->redirectToPostedUrl();
+
+                if (craft()->request->isAjaxRequest()) {
+                    $return = array(
+                        'success' => true,
+                        'id'      => $id,
+                        'message' => $form->successMessage,
+                    );
+                    $this->returnJson($return);
+                } else {
+                    $this->redirectToPostedUrl();
+                }
             } else {
                 craft()->userSession->setError(Craft::t('We\'re sorry, but something has gone wrong.'));
             }
 
             craft()->userSession->setNotice(Craft::t('Entry saved.'));
-            $this->redirectToPostedUrl($plainformEntry);
+
+            if (craft()->request->isAjaxRequest()) {
+                $return = array(
+                    'success' => true,
+                    'id'      => $id,
+                );
+                $this->returnJson($return);
+            } else {
+                $this->redirectToPostedUrl($plainFormEntry);
+            }
         } else {
             craft()->userSession->setNotice(Craft::t("Couldn't save the form."));
         }
 
-        // Send the saved form back to the template
-        craft()->urlManager->setRouteVariables(array(
-            'entry' => $plainFormEntry
-        ));
+        /**
+         * Handle AJAX requests.
+         */
+        if (craft()->request->isAjaxRequest()) {
+            $return = array(
+                'success' => false,
+            );
+
+            $this->returnJson($return);
+        } else {
+            // Send the saved form back to the template
+            craft()->urlManager->setRouteVariables(array(
+                'entry' => $simpleFormEntry
+            ));
+        }
     }
 
     public function actionDeleteEntry()
@@ -299,6 +351,34 @@ class PlainFormController extends BaseController
                 'url'   => UrlHelper::getUrl('plainform/entries'),
             ),
         );
+    }
+
+    /**
+     * Check if the Google Recaptcha response is verified.
+     * @return bool
+     */
+    private function recaptchaVerified()
+    {
+        // Get the Google Recaptcha response
+        $captcha = craft()->request->getPost('g-recaptcha-response');
+
+        // Verify the response via the Google Recaptcha plugin.
+        $verified = craft()->recaptcha_verify->verify($captcha);
+
+        return $verified ? true : false;
+    }
+
+    /**
+     * Check if the Google Recaptcha plugin is installed and enabled.
+     * @return bool
+     * @url https://github.com/aberkie/craft-recaptcha
+     */
+    private function googleRecaptchaSupported()
+    {
+        // Get the Google Recaptcha plugin by handle
+        $plugin = craft()->plugins->getPlugin('recaptcha', false);
+
+        return $plugin->isInstalled and $plugin->isEnabled ? true : false;
     }
 
     public function renderTest()

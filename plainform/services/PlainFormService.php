@@ -151,6 +151,7 @@ class PlainFormService extends BaseApplicationComponent
         // Set attributes
         $entryRecord->formId = $entry->formId;
         $entryRecord->data   = $entry->data;
+        $entryRecord->ip     = $entry->ip;
 
         $entryRecord->validate();
         $entry->addErrors($entryRecord->getErrors());
